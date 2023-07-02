@@ -19,7 +19,7 @@ namespace Events {
             const auto name = obj->GetBaseObject()->GetName();
 
             if (a_event->actionRef->IsPlayerRef() && obj->IsCrimeToActivate()) {
-                if ((obj->GetFormID() == 0xf && Settings::coins_flag) || !"Coin Purse"sv.compare(name))
+                if ((obj->GetBaseObject()->GetFormID() == 0xf && Settings::coins_flag) || !"Coin Purse"sv.compare(name))
                     Hooks::IncrementStat();
             }
         }
@@ -44,9 +44,11 @@ namespace Events {
 
         if (const auto player = RE::PlayerCharacter::GetSingleton();
             player->GetParentCell() && player->Is3DLoaded()) {
-            if (player->GetFormID() == a_event->newContainer && a_event->baseObj) {
+            if (player->GetFormID() == a_event->newContainer) {
                 if (const auto old_container = RE::TESForm::LookupByID<RE::TESObjectREFR>(a_event->oldContainer)) {
-                    if (old_container->IsCrimeToActivate()) Hooks::IncrementStat();
+                    if (old_container->IsCrimeToActivate()) {
+                        Hooks::IncrementStat();
+                    }
                 }
             }
         }

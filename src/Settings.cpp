@@ -14,7 +14,7 @@ void Settings::LoadSettings() {
     ini.SetUnicode();
     ini.LoadFile(R"(.\Data\SKSE\Plugins\StatsOfStealing.ini)");
 
-    coins_flag = static_cast<bool>(std::atoi(ini.GetValue("General", "Coins")));
+    coins_flag = ini.GetValue("General", "bEnableCoins");
 
     logger::info("Loaded settings");
 }
