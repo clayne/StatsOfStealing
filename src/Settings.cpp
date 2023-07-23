@@ -17,5 +17,5 @@ void Settings::LoadSettings() {
     coins_flag = ini.GetValue("General", "bEnableCoins");
 
     logger::info("Loaded settings");
+    logger::info("    bEnableCoins = {}", coins_flag);
 }
- 
